@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Board } from '../model/board'
+import { IdManager } from '../model/idManager'
 
 @Component({
   selector: 'app-board',
@@ -7,7 +10,7 @@ import { Component } from '@angular/core';
 })
 export class BoardComponent {
 
-  onColumnClick(column: HTMLElement) {}
+  onColumnClick(column: HTMLElement) { }
 
   board!: number[][];
   currentBoard!: number[][];
