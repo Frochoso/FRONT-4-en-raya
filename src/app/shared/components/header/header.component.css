@@ -1,0 +1,11 @@
+.app-tittle {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    color: #333;
+    margin-top: 20px;
+    font-family: 'Righteous', cursive;
+    font-size: 30px;
+    padding: 10px;
+    margin-left: 10px;
+}
