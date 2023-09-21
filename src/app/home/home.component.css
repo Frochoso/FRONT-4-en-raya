@@ -1,0 +1,33 @@
+.home-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* .text-container {
+
+} */
+
+.welcomeText-container {
+    font-size: 60px;
+}
+
+.optionsText-container {
+    font-size: 35px;
+    font-family: 'Bai Jamjuree', sans-serif;
+    text-shadow: 1px 1px 1px #7f7f7f;
+}
+
+.buttons-container{
+    display: flex;
+    justify-content: center;
+}
+
+.btn.btn-primary.m-3 {
+    width: 18vw;
+    height: 10vh;
+    background-color: rgba(96, 5, 5, 0.879);
+    border-color: rgb(89, 4, 4);
+    font-size: 20px;
+}

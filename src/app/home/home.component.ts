@@ -9,4 +9,6 @@ export class HomeComponent {
     
     onClearButton() {}
 
+    public playerName: string = 'Ana';
+
 }

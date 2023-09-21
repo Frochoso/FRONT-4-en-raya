@@ -7,11 +7,11 @@
     <form>
       <div class="mb-3">
         <label for="exampleInputUsername1" class="form-label">Username</label>
-        <input type="text" class="form-control" id="exampleInputUsername1" aria-describedby="usernameHelp" placeholder="Insert your player name here">
+        <input [(ngModel)]="playerName" name="playerName" type="text" class="form-control" id="exampleInputUsername1" aria-describedby="usernameHelp" placeholder="Insert your player name here">
         <div id="usernameHelp" class="form-text"></div>
       </div>
       
-      <button (click)="onClearButton()" class="btn btn-primary">Start</button>
+      <button (click)="onSubmit()" class="btn btn-primary">Start</button>
     </form>
   </div>
 </div>

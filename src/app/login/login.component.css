@@ -17,11 +17,15 @@
     margin-top: 20px;
     font-family: 'Righteous', cursive;
     font-size: 120px;
+    text-shadow: 5px 5px 5px #666;
   }
   
   h3 {
     font-size: 1.2rem;
     color: #666;
+    font-family: 'Bai Jamjuree', sans-serif;
+    font-weight: bold;
+    
   }
   
   form {
@@ -31,6 +35,7 @@
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    
   }
   
   .mb-3 {
@@ -49,7 +54,7 @@
   }
   
   .btn-primary {
-    background-color: #106947df;
+    background-color: rgba(96, 5, 5, 0.879);
     color: #fff;
     padding: 10px 20px;
     border: none;

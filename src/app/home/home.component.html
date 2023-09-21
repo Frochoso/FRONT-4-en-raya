@@ -1,22 +1,35 @@
-<h3>Welcome! </h3>
-<p>Choose an option:</p>
+<app-header></app-header>
 
-<button
+<div class="home-container">
+    <div class="text-container">
+        <div class="welcomeText-container">
+            <p>Welcome {{ playerName }}! </p>
+        </div>
+        <div class="optionsText-container">
+            <p>- CHOOSE AN OPTION -</p>
+        </div>
+    </div>
 
-    (click)="onClearButton()"
+    <div class="buttons-container">
+        <button
 
-    class="btn btn-primary m-3"
+            (click)="onClearButton()"
 
-    label="NOMBRE BOTON"
+            class="btn btn-primary m-3"
 
-    >New game</button>
+            label="NOMBRE BOTON"
 
-    <button
+            >New game 👤</button>
 
-    (click)="onClearButton()"
 
-    class="btn btn-primary m-3"
+            <button
 
-    label="NOMBRE BOTON"
+            (click)="onClearButton()"
 
-    >Join game</button>
+            class="btn btn-primary m-3"
+
+            label="NOMBRE BOTON"
+
+            >Join game 👥</button>
+        </div>
+</div>
