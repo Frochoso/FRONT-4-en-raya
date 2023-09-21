@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Board } from '../model/board'
+import { Board } from '../model/Game'
 import { IdManager } from '../model/idManager'
 import { Player } from '../model/player'
 

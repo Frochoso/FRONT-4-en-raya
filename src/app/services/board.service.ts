@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Board } from "../model/board";
+import { Observable } from 'rxjs';
+import { Board } from "../model/Game";
+import { GameOutputDto } from "../dto/GameOutputDto"
 import { Player } from "../model/player";
 import { IdManager } from "../model/idManager";
 
@@ -8,12 +10,28 @@ import { IdManager } from "../model/idManager";
     providedIn: 'root',
 })
 export class BoardService {
-    // apiUrl = 'http://localhost:8080';
+    private baseUrl = 'http://localhost:8080/game';
+    private newUrl!: string;
 
-    // constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) { }
 
-    // async newMovement(idManager: IdManager) {
-    //     const urlBackend = `${this.apiUrl}/game/movement`;
-    //     return this.http.post<any>(urlBackend, idManager).toPromise();
-    // }
+    getGameById(idGame: number): Observable<any> {
+        this.newUrl = `${this.baseUrl}/getGame/${idGame}`;
+        return this.http.get<any>(this.newUrl);
+    }
+
+    newMovement(idManager: IdManager): Observable<any> {
+        this.newUrl = `${this.baseUrl}/movement`;
+        return this.http.post<any>(this.newUrl, idManager);
+    }
+
+    checkPlayerTurn(gameId: number, playerId: number): Observable<any> {
+        this.newUrl = `${this.baseUrl}/checkTurn/${gameId}/${playerId}`;
+        return this.http.get<any>(this.newUrl);
+    }
+
+    addPlayer2(gameId: number, playerId: number): Observable<any> {
+        this.newUrl = `${this.baseUrl}/${gameId}/addPlayer2/${playerId}`;
+        return this.http.post<any>(this.newUrl, null);
+    }
 }
