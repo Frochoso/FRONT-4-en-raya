@@ -25,11 +25,23 @@ export class BoardComponent {
   player1!: Player;
   player2!: Player;
   idManager!: IdManager;
+  playerTurn = 1;
 
+  onCellClick(rowIndex: number, colIndex: number): void {
+    console.log(`Clic en la celda en la fila ${rowIndex} y columna ${colIndex}`);
 
+    if (this.playerTurn == 1 && (this.htmlBoard[rowIndex][colIndex] != 1 && this.htmlBoard[rowIndex][colIndex] != 2)) {
+      this.htmlBoard[rowIndex][colIndex] = 1;
+      this.playerTurn = 2;
+    } else if (this.playerTurn == 2 && (this.htmlBoard[rowIndex][colIndex] != 1 && this.htmlBoard[rowIndex][colIndex] != 2)) {
+      this.htmlBoard[rowIndex][colIndex] = 2;
+      this.playerTurn = 1;
+    }
+  }
 
   ngOnInit() {
     this.board.size = this.htmlBoard;
+
   }
 
 }
