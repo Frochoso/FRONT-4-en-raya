@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { PlayerService } from '../services/player.service';
+import { PlayerService } from '../services/player/player.service';
 import { Subject, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -15,7 +15,6 @@ export class LoginComponent implements OnDestroy {
   private unsubscribe$ = new Subject<void>(); // Usamos un subject para realizar una desuscripción adecuada
 
   constructor(private playerService: PlayerService, private router: Router) { }
-
 
   onSubmit() {
     if (this.playerName.trim() !== '') {

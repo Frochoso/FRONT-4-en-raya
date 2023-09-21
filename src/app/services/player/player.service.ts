@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PlayerInputDto } from '../dto/PlayerInputDto';
+import { PlayerInputDto } from '../../dto/PlayerInputDto';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,5 @@ export class PlayerService {
     console.log('Valor de playerName:',playerName);
     this.playerInputDto.playerName = playerName;
     return this.http.post<PlayerInputDto>(this.baseUrl, this.playerInputDto);
-
   }
 }
