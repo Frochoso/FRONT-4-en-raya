@@ -1,8 +1,8 @@
 <h1>Tablerillo wena ente</h1>
 
-<table id="tabla">
+<table  class="center-table">
   <tr *ngFor="let row of htmlBoard; let rowIndex=index">
-    <td *ngFor="let cell of row; let colIndex=index" [attr.id]="'cell-' + rowIndex + '-' + colIndex" (click)="onCellClick(rowIndex, colIndex)">
+    <td *ngFor="let cell of row; let colIndex=index" [attr.id]="'cell-' + rowIndex + '-' + colIndex">
       {{cell}}
     </td>
   </tr>
