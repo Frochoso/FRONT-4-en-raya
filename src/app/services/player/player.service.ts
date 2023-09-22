@@ -27,13 +27,13 @@ export class PlayerService {
   }
 
   getPlayerById(id: number): Observable<PlayerOutputDto> {
-    this.newUrl = `${this.baseUrl}/findById/${id}}`;
+    this.newUrl = `${this.baseUrl}/findById/${id}`;
     return this.http.get<any>(this.newUrl);
   }
 
-  createPlayer(playerName: string): Observable<any> {
+  createPlayer(playerName: string): Observable<PlayerOutputDto> {
     console.log('Valor de playerName:', playerName);
     this.playerInputDto.playerName = playerName;
-    return this.http.post<PlayerInputDto>(this.baseUrl, this.playerInputDto);
+    return this.http.post<any>(this.baseUrl, this.playerInputDto);
   }
 }

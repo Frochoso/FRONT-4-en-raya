@@ -40,11 +40,11 @@ export class BoardComponent {
 
     this.gameService.getGameById(this.gameService.getGameId()).subscribe((gameData: GameOutputDto) => {
       this.board = gameData;
-    });
 
-    this.playerService.getPlayerById(this.board.player1Id).subscribe((playerData: PlayerOutputDto) => {
-      this.player1 = playerData;
-    })
+      this.playerService.getPlayerById(this.playerService.getPlayer1Id()).subscribe((playerData: PlayerOutputDto) => {
+        this.player1 = playerData;
+      })
+    });
   }
 
   onCellClick(rowIndex: number, colIndex: number): void {

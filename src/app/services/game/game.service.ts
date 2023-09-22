@@ -25,7 +25,7 @@ export class GameService {
     return this.gameId;
   }
 
-  createGame(playerId: number): Observable<any> {
+  createGame(playerId: number): Observable<GameOutputDto> {
     this.newUrl = `${this.baseUrl}/${playerId}`;
     return this.http.post<any>(this.newUrl, null);
   }
