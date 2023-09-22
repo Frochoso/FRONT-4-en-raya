@@ -1,9 +1,26 @@
 <h1>Tablerillo wena ente</h1>
 
-<table id="tabla">
-  <tr *ngFor="let row of htmlBoard; let rowIndex=index">
-    <td *ngFor="let cell of row; let colIndex=index" (click)="onCellClick(rowIndex, colIndex)">
-      {{cell}} 
-    </td>
-  </tr>
-</table>
+<ng-container *ngIf="!isLoading">
+  <table id="tabla">
+    <tr *ngFor="let row of htmlBoard; let rowIndex=index">
+      <td *ngFor="let cell of row; let colIndex=index" (click)="onCellClick(rowIndex, colIndex)">
+        {{cell}} 
+      </td>
+    </tr>
+  </table>
+</ng-container>
+
+
+<div class="text-center" *ngIf="isLoading">
+
+  <p-progressSpinner
+
+    styleClass="custom-spinner"
+
+    strokeWidth="4"
+
+    fill="#F1F1F1"
+
+  ></p-progressSpinner>
+
+</div>

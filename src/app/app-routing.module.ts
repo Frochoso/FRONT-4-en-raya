@@ -20,7 +20,7 @@ const routes: Routes = [
     component: AvailableGamesComponent
   },
   {
-    path: 'board', 
+    path: 'board/:id/playerId/:player1Id', 
     component: BoardComponent
   },
   {

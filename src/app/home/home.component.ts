@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { GameService } from '../services/game/game.service';
 import { PlayerService } from '../services/player/player.service';
 import { Router } from '@angular/router';
+import { Routes } from './routes.enum';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +25,7 @@ export class HomeComponent {
           // Manejar la respuesta del backend (puede ser la partida creada)
           console.log('Partida creada:', response);
           // Redirigir a la vista de la partida creada, si es necesario
-          this.router.navigate(['/board']);
+          this.router.navigate([`${Routes.BOARD}/${response.id}/${Routes.PLAYER_ID}/${response.player1Id}`]); // Le pasamos los id a la ruta
         },
         (error) => {
           // Manejar errores

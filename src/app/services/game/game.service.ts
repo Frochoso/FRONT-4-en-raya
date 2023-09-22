@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs'
-import { Board } from "../../model/Game";
-import { GameOutputDto } from "../../dto/GameOutputDto"
+import { Board } from "../../model/Board";
 import { Player } from "../../model/player";
 import { IdManager } from "../../model/idManager";
 
@@ -14,7 +13,7 @@ export class GameService {
   private baseUrl = 'http://localhost:8080/game';
   private newUrl!: string;
 
-  public gameId!: number;
+  private gameId!: number;
   constructor(private http: HttpClient) { }
 
   setGameId(newGameId: number): void {
@@ -25,12 +24,12 @@ export class GameService {
     return this.gameId;
   }
 
-  createGame(playerId: number): Observable<GameOutputDto> {
+  createGame(playerId: number): Observable<Board> {
     this.newUrl = `${this.baseUrl}/${playerId}`;
     return this.http.post<any>(this.newUrl, null);
   }
 
-  getGameById(id: number): Observable<GameOutputDto> {
+  getGameById(id: number): Observable<Board> {
     this.newUrl = `${this.baseUrl}/getGame/${id}`;
     return this.http.get<any>(this.newUrl);
 }
