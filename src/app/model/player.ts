@@ -1,6 +1,6 @@
 export interface Player{
     id:number;
-    name:String;
+    playerName:String;
     playerNumber:number;
 
 }
