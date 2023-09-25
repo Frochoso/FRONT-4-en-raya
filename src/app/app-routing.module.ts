@@ -8,23 +8,23 @@ import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {
-    path: 'login', 
+    path: 'login',
     component: LoginComponent
   },
   {
-    path: 'home', 
+    path: 'home/:playerId',
     component: HomeComponent
   },
   {
-    path: 'availableGames', 
+    path: 'availableGames/playerId/:playerId',
     component: AvailableGamesComponent
   },
   {
-    path: 'board/:id/playerId/:player1Id', 
+    path: 'board/:id/playerId/:player1Id',
     component: BoardComponent
   },
   {
-    path: '**', 
+    path: '**',
     redirectTo: 'login'
   },
 ];

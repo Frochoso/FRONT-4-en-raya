@@ -3,6 +3,7 @@ import { GameService } from '../services/game/game.service';
 import { PlayerService } from '../services/player/player.service';
 import { Router } from '@angular/router';
 import { Routes } from './routes.enum';
+import { RouteService } from '../services/route.service';
 
 @Component({
   selector: 'app-home',
@@ -11,9 +12,19 @@ import { Routes } from './routes.enum';
 })
 export class HomeComponent {
 
+  playerId!: number;
 
+  constructor(private gameService: GameService, private playerService: PlayerService, private router: Router,
+    private _routeService: RouteService
+  ) {
+    this._routeService.getRouteParams().subscribe((params: any) => {
 
-  constructor(private gameService: GameService, private playerService: PlayerService, private router: Router) { }
+      this.playerId = params.playerId;
+
+      console.log(params);
+
+    });
+  }
 
   createGame() {
     // Aquí debes obtener el playerId de alguna manera,
@@ -35,7 +46,7 @@ export class HomeComponent {
   }
 
   showAvailableGames() {
-    this.router.navigate([`${Routes.AVAILABLE_GAMES}`]);
+    this.router.navigate([`${Routes.AVAILABLE_GAMES}/${Routes.PLAYER_ID}/${this.playerId}`]);
   }
 
 }

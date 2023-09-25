@@ -2,8 +2,13 @@
 <h1>Available Games:</h1>
 <ul>
     <li *ngFor="let game of games">
-        Game: {{game.id}}
-        <br>
-        Player1:{{ game.player1Id }}
+        <ol *ngFor="let player of players">
+            Game: {{game.id}}
+            <br>
+            Player name:{{ player.playerName }}
+            <br>
+            <button (click)="joinGame(game.id)" class="btn btn-primary m-3" label="NOMBRE BOTON">Join game
+                👥</button>
+        </ol>
     </li>
 </ul>

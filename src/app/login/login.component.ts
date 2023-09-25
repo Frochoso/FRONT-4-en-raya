@@ -28,9 +28,7 @@ export class LoginComponent implements OnDestroy {
             console.log('Jugador creado:', response);
             console.log(this.playerName); // Mover esta línea aquí
 
-            this.playerService.setPlayer1Id(response.id); // Setteamos el id del jugador
-
-            this.router.navigate(['/home']); // Se registra el jugador y pasa a la siguiente vista
+            this.router.navigate([`/home/${response.id}`]); // Se registra el jugador y pasa a la siguiente vista
           },
           (error) => {
             // Manejar errores, como si el nombre de usuario ya existe
