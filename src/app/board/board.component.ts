@@ -31,6 +31,7 @@ export class BoardComponent {
   playerTurn = 1;
   private _unsubscribe$ = new Subject<boolean>();
   isLoading: boolean = false;
+  playing: boolean = true;
 
   constructor(
     private playerService: PlayerService,
@@ -63,53 +64,72 @@ export class BoardComponent {
     });
 
     console.log(this.board);
-
   }
 
 
   onCellClick(rowIndex: number, colIndex: number): void {
 
-    this.isLoading = true;
+    if (this.playing) {
 
-    setInterval(() => {
-      this.gameService.getGameById(this.board.id).subscribe((gameData: Board) => {
-        this.board = gameData;
-        this.htmlBoard = this.board.size;
+      this.isLoading = true;
+
+      setInterval(() => {
+        this.gameService.getGameById(this.board.id).subscribe((gameData: Board) => {
+          this.board = gameData;
+          this.htmlBoard = this.board.size;
+          this.isLoading = false;
+          this.player2.id = this.board.player2Id
+          this.player1.id = this.board.player1Id
+        });
+      }, 1000);
+
+      if (this.gameService.checkPlayerTurn(this.board.id, this.player1.id)) {
+
+        this.idManager = { playerId: this.player1.id, gameId: this.board.id, column: colIndex, row: rowIndex };
+
+        if (this.player2.id == null) {
+          this.showWaitingForSecondPlayerMessage();
+
+        } else {
+
+          this.gameService.newMovement(this.idManager).subscribe(
+            (response) => {
+
+              this.gameService.getGameById(this.board.id).subscribe((gameData: Board) => {
+                this.board = gameData;
+                this.htmlBoard = this.board.size;
+                this.isLoading = false;
+              });
+
+            })
+
+          if (this.player1.id == this.board.winner) {
+            this.showWinnerMessage();
+            this.playing = false;
+          } else if (this.board.winner == 0) {
+            this.showDrawMessage();
+          } else {
+            this.showLoserMessage();
+          }
+        }
+      } else {
         this.isLoading = false;
-        this.player2.id = this.board.player2Id
-        this.player1.id = this.board.player1Id
-      });
-    }, 1000);
+        this._messageService.add({
 
-    if (this.gameService.checkPlayerTurn(this.board.id, this.player1.id)) {
+          key: 'templateToast',
 
-      this.idManager = { playerId: this.player1.id, gameId: this.board.id, column: colIndex, row: rowIndex };
+          severity: 'error',
 
-      this.gameService.newMovement(this.idManager).subscribe(
-        (response) => {
+          summary: 'ERROR',
 
-          this.gameService.getGameById(this.board.id).subscribe((gameData: Board) => {
-            this.board = gameData;
-            this.htmlBoard = this.board.size;
-            this.isLoading = false;
-          });
+          detail: 'Not your turn'
 
-        })
+        });
+        console.log(this._messageService);
+      }
 
     } else {
-      this.isLoading = false;
-      this._messageService.add({
-
-        key: 'templateToast',
-
-        severity: 'error',
-
-        summary: 'ERROR',
-
-        detail: 'Not your turn'
-
-      });
-      console.log(this._messageService);
+      // 
     }
 
   }
@@ -120,6 +140,45 @@ export class BoardComponent {
 
   }
 
+  showWaitingForSecondPlayerMessage(): void {
+    this._messageService.add({
+      key: 'tc',
+      severity: 'info',
+      summary: 'Esperando al segundo jugador',
+      detail: 'Es necesario que se una otro jugador para comenzar la partida.',
+      life: 2000
+    });
+  }
+
+  showWinnerMessage(): void {
+    this._messageService.add({
+      key: 'tc',
+      severity: 'success',
+      summary: '¡Ganaste!',
+      detail: '¡Felicidades, eres el ganador!',
+      life: 2000
+    });
+  }
+
+  showLoserMessage(): void {
+    this._messageService.add({
+      key: 'tc',
+      severity: 'error',
+      summary: 'Perdiste',
+      detail: '¡Mejor suerte la próxima vez!',
+      life: 2000
+    });
+  }
+
+  showDrawMessage(): void {
+    this._messageService.add({
+      key: 'tc',
+      severity: 'info',
+      summary: 'Empate',
+      detail: 'El juego terminó en empate.',
+      life: 2000
+    });
+  }
 }
 
 

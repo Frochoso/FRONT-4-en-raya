@@ -13,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ToastModule } from 'primeng/toast';
+import { BrowserAnimationsModule  } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    ToastModule,
+    BrowserAnimationsModule 
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

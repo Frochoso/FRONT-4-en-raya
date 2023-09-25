@@ -31,3 +31,7 @@
     border-color: rgb(89, 4, 4);
     font-size: 20px;
 }
+
+.btn-primary:hover {
+    background-color: #c51212;
+  }

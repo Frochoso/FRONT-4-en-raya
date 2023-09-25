@@ -1,9 +1,9 @@
 h3 {
   font-size: 70px;
-  color: #666;
+  color: #333;
   font-family: 'Bai Jamjuree', sans-serif;
   font-weight: bold;
-  padding: 20px;
+  padding: 10px;
 }
 
 #tablero-container {
