@@ -17,10 +17,10 @@ export class GameService {
   constructor(private http: HttpClient) { }
 
   setGameId(newGameId: number): void {
-    this.gameId=newGameId;
+    this.gameId = newGameId;
   }
 
-  getGameId():number{
+  getGameId(): number {
     return this.gameId;
   }
 
@@ -32,20 +32,25 @@ export class GameService {
   getGameById(id: number): Observable<Board> {
     this.newUrl = `${this.baseUrl}/getGame/${id}`;
     return this.http.get<any>(this.newUrl);
-}
+  }
 
-newMovement(idManager: IdManager): Observable<any> {
+  newMovement(idManager: IdManager): Observable<any> {
     this.newUrl = `${this.baseUrl}/movement`;
     return this.http.post<any>(this.newUrl, idManager);
-}
+  }
 
-checkPlayerTurn(gameId: number, playerId: number): Observable<any> {
+  checkPlayerTurn(gameId: number, playerId: number): Observable<any> {
     this.newUrl = `${this.baseUrl}/checkTurn/${gameId}/${playerId}`;
     return this.http.get<any>(this.newUrl);
-}
+  }
 
-addPlayer2(gameId: number, playerId: number): Observable<any> {
+  addPlayer2(gameId: number, playerId: number): Observable<any> {
     this.newUrl = `${this.baseUrl}/${gameId}/addPlayer2/${playerId}`;
     return this.http.post<any>(this.newUrl, null);
-}
+  }
+
+  findAllGames(): Observable<Array<any>> {
+    this.newUrl = `${this.baseUrl}/findAll`;
+    return this.http.get<Array<any>>(this.newUrl);
+  }
 }

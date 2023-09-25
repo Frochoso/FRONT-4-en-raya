@@ -1,2 +1,5 @@
 <app-header></app-header>
 <h1>Available Games:</h1>
+<ul>
+    <li *ngFor="let game of games">{{ game.name }}</li>
+</ul>
