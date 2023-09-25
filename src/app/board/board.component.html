@@ -1,13 +1,17 @@
-<h1>Tablerillo wena ente</h1>
+<h3>Game Board</h3>
 
 <ng-container *ngIf="!isLoading">
-  <table id="tabla">
-    <tr *ngFor="let row of htmlBoard; let rowIndex=index">
-      <td *ngFor="let cell of row; let colIndex=index" (click)="onCellClick(rowIndex, colIndex)">
-        {{cell}} 
-      </td>
-    </tr>
-  </table>
+  <div id="tablero-container">
+    <table id="tabla">
+      <tr *ngFor="let row of htmlBoard; let rowIndex=index">
+        <td *ngFor="let cell of row; let colIndex=index" (click)="onCellClick(rowIndex, colIndex)">
+          <div class="cell">
+            <div class="circle" [ngClass]="{ 'player1': cell === player1.id, 'player2': cell === player2.id }"></div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
 </ng-container>
 
 

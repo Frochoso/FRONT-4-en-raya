@@ -54,44 +54,62 @@ export class BoardComponent {
   ngOnInit() {
 
     this.gameService.getGameById(this.board.id).subscribe((gameData: Board) => {
-        this.board = gameData;
-        console.log(gameData);
-      });
-  
-    this.playerService.getPlayerById(this.player1.id).subscribe((playerData: PlayerOutputDto) => {
-        this.player1 = playerData;
-      });
+      this.board = gameData;
+      console.log(gameData);
+    });
 
-      console.log(this.board);
+    this.playerService.getPlayerById(this.player1.id).subscribe((playerData: PlayerOutputDto) => {
+      this.player1 = playerData;
+    });
+
+    console.log(this.board);
 
   }
-  
+
 
   onCellClick(rowIndex: number, colIndex: number): void {
 
     this.isLoading = true;
-    if (this.gameService.checkPlayerTurn(this.board.id, this.player1.id)) {
-      this.idManager = { playerId: this.player1.id, gameId: this.board.id, column: colIndex, row: rowIndex };
-      this.gameService.newMovement(this.idManager);
 
+    setInterval(() => {
       this.gameService.getGameById(this.board.id).subscribe((gameData: Board) => {
         this.board = gameData;
         this.htmlBoard = this.board.size;
         this.isLoading = false;
+        this.player2.id = this.board.player2Id
+        this.player1.id = this.board.player1Id
       });
+    }, 1000);
+
+    if (this.gameService.checkPlayerTurn(this.board.id, this.player1.id)) {
+
+      this.idManager = { playerId: this.player1.id, gameId: this.board.id, column: colIndex, row: rowIndex };
+
+      this.gameService.newMovement(this.idManager).subscribe(
+        (response) => {
+
+          this.gameService.getGameById(this.board.id).subscribe((gameData: Board) => {
+            this.board = gameData;
+            this.htmlBoard = this.board.size;
+            this.isLoading = false;
+          });
+
+        })
+
     } else {
       this.isLoading = false;
       this._messageService.add({
 
         key: 'templateToast',
-  
+
         severity: 'error',
-  
+
         summary: 'ERROR',
-  
+
         detail: 'Not your turn'
-  
+
       });
+      console.log(this._messageService);
     }
 
   }

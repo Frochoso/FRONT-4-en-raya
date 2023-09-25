@@ -12,7 +12,7 @@ import { Player } from '../model/player';
 export class AvailableGamesComponent {
 
   games: GameOutputDto[] = [];
-  player!: Player[]=[];
+  player: Player[]=[];
 
 
   constructor(
@@ -24,7 +24,7 @@ export class AvailableGamesComponent {
     this.gameService.findAllGames().subscribe(
       (data) => {
         this.games = data;
-        for 
+       // for 
         //Bucle para asignar nombre al jugador:
         //this.playerService.getPlayerById()
       },
