@@ -1,5 +1,5 @@
 export interface Player{
     id:number;
-    playerName:String;
+    playerName:string;
     playerNumber:number;
 }

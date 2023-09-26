@@ -32,6 +32,8 @@ export class BoardComponent {
   private _unsubscribe$ = new Subject<boolean>();
   isLoading: boolean = false;
   playing: boolean = true;
+  winner!: number;
+  interval!: any;
 
   constructor(
     private playerService: PlayerService,
@@ -45,6 +47,24 @@ export class BoardComponent {
 
       this.player1.id = params.player1Id;
       this.board.id = params.id;
+
+      this.interval = setInterval(() => {
+
+        this.gameService.getGameById(this.board.id).subscribe((gameData: Board) => {
+          this.board = gameData;
+          this.htmlBoard = this.board.size;
+          this.isLoading = false;
+          this.player2.id = this.board.player2Id
+          this.player1.id = this.board.player1Id
+          this.winner = gameData.winner;
+        });
+
+        if (this.winner >= 0 && this.winner != null) {
+          clearInterval(this.interval)
+          this.checkWinner()
+        }
+
+      }, 1000);
 
       console.log(params);
 
@@ -66,22 +86,11 @@ export class BoardComponent {
     console.log(this.board);
   }
 
-
   onCellClick(rowIndex: number, colIndex: number): void {
 
     if (this.playing) {
 
       this.isLoading = true;
-
-      setInterval(() => {
-        this.gameService.getGameById(this.board.id).subscribe((gameData: Board) => {
-          this.board = gameData;
-          this.htmlBoard = this.board.size;
-          this.isLoading = false;
-          this.player2.id = this.board.player2Id
-          this.player1.id = this.board.player1Id
-        });
-      }, 1000);
 
       if (this.gameService.checkPlayerTurn(this.board.id, this.player1.id)) {
 
@@ -99,18 +108,15 @@ export class BoardComponent {
                 this.board = gameData;
                 this.htmlBoard = this.board.size;
                 this.isLoading = false;
+
+                this.playerService.getPlayerById(gameData.player2Id).subscribe((response) => {
+                  this.player2 = response;
+                })
+
               });
 
+              this.checkWinner();
             })
-
-          if (this.player1.id == this.board.winner) {
-            this.showWinnerMessage();
-            this.playing = false;
-          } else if (this.board.winner == 0) {
-            this.showDrawMessage();
-          } else {
-            this.showLoserMessage();
-          }
         }
       } else {
         this.isLoading = false;
@@ -129,14 +135,29 @@ export class BoardComponent {
       }
 
     } else {
-      // 
+
     }
 
   }
 
-  ngAfterViewChecked(): void {
+  checkWinner(): void {
 
-    this.cdRef.detectChanges();
+    if (this.player1.id == this.board.winner) {
+      this.showWinnerMessage(this.player1.id, this.player1.playerName);
+      this.playing = false;
+    }
+
+
+    if (this.player2.id == this.board.winner) {
+      this.showWinnerMessage(this.player2.id, this.player2.playerName);
+      this.playing = false;
+    }
+    else if (this.board.winner == 0) {
+      this.showDrawMessage();
+      this.playing = false;
+    } else if (this.board.winner == -1) {
+
+    }
 
   }
 
@@ -145,28 +166,16 @@ export class BoardComponent {
       key: 'tc',
       severity: 'info',
       summary: 'Esperando al segundo jugador',
-      detail: 'Es necesario que se una otro jugador para comenzar la partida.',
-      life: 2000
+      detail: 'Es necesario que se una otro jugador para comenzar la partida.'
     });
   }
 
-  showWinnerMessage(): void {
+  showWinnerMessage(winnerId: number, winnerName: string): void {
     this._messageService.add({
       key: 'tc',
       severity: 'success',
-      summary: '¡Ganaste!',
-      detail: '¡Felicidades, eres el ganador!',
-      life: 2000
-    });
-  }
-
-  showLoserMessage(): void {
-    this._messageService.add({
-      key: 'tc',
-      severity: 'error',
-      summary: 'Perdiste',
-      detail: '¡Mejor suerte la próxima vez!',
-      life: 2000
+      summary: '¡Victoria!',
+      detail: 'El jugador ' + "(" + winnerId + ") " + winnerName + ", ha ganado."
     });
   }
 
@@ -175,8 +184,7 @@ export class BoardComponent {
       key: 'tc',
       severity: 'info',
       summary: 'Empate',
-      detail: 'El juego terminó en empate.',
-      life: 2000
+      detail: 'El juego terminó en empate.'
     });
   }
 }
